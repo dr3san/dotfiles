@@ -1,0 +1,43 @@
+[core]
+    pager = delta
+    attributesFile = ~/.config/git/gitattributes
+
+[user]
+    name = Andres Sakk
+
+[init]
+    defaultBranch = main
+
+[commit]
+    verbose = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[push]
+    autoSetupRemote = true
+
+[pull]
+     rebase = true
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+
+[diff]
+    algorithm = histogram
+
+[rerere]
+    enabled = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    line-numbers = true
+
+[advice]
+    statusHints = false
+
