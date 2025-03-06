@@ -1,0 +1,6 @@
+colorscheme gruvbox-dark
+
+# Do not use alphas for navigation
+map global normal l x
+
+add-highlighter /global number-lines
