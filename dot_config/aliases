@@ -1,0 +1,22 @@
+alias l='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias ll='ls -la --color=auto'
+
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -Iv'
+alias ln='ln -i'
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+alias printenv='printenv | bat -l bash --style="numbers"'
+
+alias please='sudo !!'
+alias make='make -j $(nproc)'
+
+alias gs='git status'
+alias gl='git log --oneline -n 20'
+alias gd='git diff'
+alias ga='git add'
+alias gfixup='git commit --fixup'
