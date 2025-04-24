@@ -13,6 +13,7 @@ map -docstring "yank the selection into the clipboard" global user y "<a-|> wl-c
 map -docstring "paste the clipboard" global user p "<a-!> wl-paste<ret>"
 
 add-highlighter global/ number-lines -hlcursor
+add-highlighter global/ show-matching
 
 # set cursor to underline
 hook global InsertIdle .* %{
