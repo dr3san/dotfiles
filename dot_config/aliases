@@ -12,7 +12,6 @@ alias chgrp='chgrp --preserve-root'
 
 alias printenv='printenv | bat -l bash --style="numbers"'
 
-alias please='sudo !!'
 alias make='make -j $(nproc)'
 
 alias gs='git status'
