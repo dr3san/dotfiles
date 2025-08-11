@@ -1,0 +1,8 @@
+export EDITOR="kak"
+export VISUAL="kak"
+
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+export LS_COLORS="$(vivid generate gruvbox-dark-soft)"
+export PATH=$PATH:~/.local/bin
