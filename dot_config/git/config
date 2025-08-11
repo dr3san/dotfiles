@@ -5,8 +5,29 @@
 [user]
     name = Andres Sakk
 
+[alias]
+     lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+     sync = !git fetch && git reset --hard @{u}
+
+[column]
+    ui = auto
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    line-numbers = true
+    map-styles = bold purple => syntax "#928374", bold cyan => syntax "#689d6a"
+
+[advice]
+    statusHints = false
+
 [init]
     defaultBranch = main
+
+[branch]
+    sort = committerdate
 
 [commit]
     verbose = true
@@ -16,6 +37,12 @@
 
 [push]
     autoSetupRemote = true
+    followTags = true
+
+[fetch]
+    all = true
+    prune = true
+    pruneTags = true
 
 [pull]
      rebase = true
@@ -23,24 +50,18 @@
 [rebase]
     autoSquash = true
     autoStash = true
-
-[diff]
-    algorithm = histogram
+    updateRefs = true
 
 [rerere]
     enabled = true
+    autoUpdate = true
 
-[interactive]
-    diffFilter = delta --color-only
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    renames = true
+    mnemonicPrefix = true
 
-[delta]
-    navigate = true  # use n and N to move between diff sections
-    dark = true      # or light = true, or omit for auto-detection
-    line-numbers = true
+[tag]
+    sort = version:refname
 
-[advice]
-    statusHints = false
-
-[alias]
-     lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
-     sync = !git fetch && git reset --hard @{u}
