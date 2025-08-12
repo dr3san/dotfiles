@@ -35,6 +35,6 @@ import = [
 
 [keyboard]
 bindings = [
-  {key = "ArrowUp", mods = "Shift", action = "ScrollHalfPageUp"},
-  {key = "ArrowDown", mods = "Shift", action = "ScrollHalfPageDown"},
+  {key = "PageUp", mods = "Control", action = "ScrollLineUp"},
+  {key = "PageDown", mods = "Control", action = "ScrollLineDown"},
 ]
