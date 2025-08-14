@@ -23,6 +23,8 @@ setopt NO_FLOW_CONTROL
 # Job control options
 setopt NOTIFY
 
+autoload -U select-word-style && select-word-style bash
+
 # Key bindings
 bindkey '^[[1;5C' forward-word   # Ctrl + Right
 bindkey '^[[1;5D' backward-word  # Ctrl + Left
@@ -49,7 +51,6 @@ if [[ ! -v XDG_CONFIG_HOME ]]; then
 fi
 
 autoload -Uz compinit && compinit
-autoload -U select-word-style && select-word-style bash
 eval "$(oh-my-posh init zsh --config $XDG_CONFIG_HOME/ohmyposh/zen.toml)"
 source <(fzf --zsh)
 source $XDG_CONFIG_HOME/aliases
