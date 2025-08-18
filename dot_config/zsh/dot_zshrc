@@ -23,8 +23,6 @@ setopt NO_FLOW_CONTROL
 # Job control options
 setopt NOTIFY
 
-autoload -U select-word-style && select-word-style bash
-
 # Key bindings
 bindkey '^[[1;5C' forward-word   # Ctrl + Right
 bindkey '^[[1;5D' backward-word  # Ctrl + Left
@@ -33,24 +31,32 @@ bindkey '^[[F' end-of-line       # End
 bindkey '^[[3;5~' kill-word      # Ctrl + Delete
 bindkey '^H' backward-kill-word  # Ctrl + Backspace
 bindkey '^[[3~' delete-char      # Delete
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+export LS_COLORS="$(vivid generate gruvbox-dark-soft)"
+source $XDG_CONFIG_HOME/aliases
+
+autoload -Uz compinit && compinit
+autoload -U select-word-style && select-word-style bash
+
+source <(fzf --zsh)
+if [[ ! -e $ZDOTDIR/fzf-tab ]]; then
+  git clone https://github.com/Aloxaf/fzf-tab.git $ZDOTDIR/fzf-tab
+fi
+source $ZDOTDIR/fzf-tab/fzf-tab.plugin.zsh
+enable-fzf-tab
 
 if [[ ! -e $ZDOTDIR/zsh-syntax-highlighting ]]; then
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZDOTDIR/zsh-syntax-highlighting
 fi
 source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-if [[ ! -e $ZDOTDIR/zsh-completions ]]; then
-  git clone https://github.com/zsh-users/zsh-completions.git $ZDOTDIR/zsh-completions
-fi
-source $ZDOTDIR/zsh-completions/zsh-completions.plugin.zsh
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' menu no
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
 
-export LS_COLORS="$(vivid generate gruvbox-dark-soft)"
-
-autoload -Uz compinit && compinit
 eval "$(oh-my-posh init zsh --config $XDG_CONFIG_HOME/ohmyposh/zen.toml)"
-source <(fzf --zsh)
-source $XDG_CONFIG_HOME/aliases
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh --cmd cd)"
