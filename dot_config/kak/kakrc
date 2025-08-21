@@ -3,27 +3,35 @@ colorscheme gruvbox-dark
 set-option -add global autoinfo normal
 set-option global ui_options terminal_assistant=none
 
-set-option global tabstop 4
+set-option global tabstop     4
 set-option global indentwidth 4
-set-option global scrolloff 5,10
+set-option global scrolloff   5,10
 
 # Do not use alphas for navigation
-# map global normal h ? # TODO: Find use for this key
 # map global normal j ? # TODO: Find use for this key
+# map global normal J ? # TODO: Find use for this key
+# map global normal h ? # TODO: Find use for this key
+# map global normal H ? # TODO: Find use for this key
 # map global normal k ? # TODO: Find use for this key
-map global normal l x
+# map global normal K ? # TODO: Find use for this key
+# map global normal L ? # TODO: Find use for this key
+map global normal 'l'          'x'
 
-map -docstring "line begin" global goto <left> h
-# map global goto <up> j
-# map global goto <up> k
-map -docstring "line end" global goto <right> l
+map global normal '<end>'      'gl'
+map global normal '<home>'     'gh'
+map global normal '<pageup>'   '<c-u>'
+map global normal '<pagedown>' '<c-d>'
+
+map global normal 'v'          '<a-i>'
+map global normal 'V'          '<a-a>'
 
 # Move lines up/down -- works with single selection.
-map global normal '<a-up>' 'x"aZy<a-;>kPZ"azdz'
+map global normal '<a-up>'   'x"aZy<a-;>kPZ"azdz'
 map global normal '<a-down>' 'xdp'
 
+# User mode mappings
 map -docstring "yank the selection into the clipboard" global user y "<a-|> wl-copy<ret>"
-map -docstring "paste the clipboard" global user p "<a-!> wl-paste<ret>"
+map -docstring "paste the clipboard"                   global user p "<a-!> wl-paste<ret>"
 
 add-highlighter global/ number-lines -hlcursor
 add-highlighter global/ show-matching
@@ -32,11 +40,11 @@ add-highlighter global/ wrap -word -indent
 
 # set cursor to underline
 hook global InsertIdle .* %{
-  set-face window PrimaryCursor default,default+u
-  set-face window PrimaryCursorEol default,default+u
-  set-face window SecondaryCursor default,default+u
+  set-face window PrimaryCursor      default,default+u
+  set-face window PrimaryCursorEol   default,default+u
+  set-face window SecondaryCursor    default,default+u
   set-face window SecondaryCursorEol default,default+u
-  set-face window PrimarySelection default,default
+  set-face window PrimarySelection   default,default
   set-face window SecondarySelection default,default
 }
 
