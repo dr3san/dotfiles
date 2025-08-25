@@ -24,10 +24,14 @@ map global normal '<pagedown>' '<c-d>'
 
 map global normal 'v'          '<a-i>'
 map global normal 'V'          '<a-a>'
+map global normal '<minus>'    '<a-;>'
 
 # Move lines up/down -- works with single selection.
-map global normal '<a-up>'   'x"aZy<a-;>kPZ"azdz'
-map global normal '<a-down>' 'xdp'
+map global normal '<a-up>'     'x"aZy<a-;>kPZ"azdz'
+map global normal '<a-down>'   'xdp'
+
+map global goto '<left>'   '<esc>:buffer-previous<ret>'
+map global goto '<right>'  '<esc>:buffer-next<ret>'
 
 # User mode mappings
 map -docstring "yank the selection into the clipboard" global user y "<a-|> wl-copy<ret>"
