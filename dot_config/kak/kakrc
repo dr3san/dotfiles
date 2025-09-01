@@ -19,19 +19,17 @@ map global normal 'l'          'x'
 
 map global normal '<end>'      'gl'
 map global normal '<home>'     'gh'
-map global normal '<pageup>'   '<c-u>'
-map global normal '<pagedown>' '<c-d>'
+map global normal '<pageup>'   'gt'
+map global normal '<pagedown>' 'gb'
 
 map global normal 'v'          '<a-i>'
 map global normal 'V'          '<a-a>'
 map global normal '<minus>'    '<a-;>'
 
+# TODO: Find way for undo these as a single operation
 # Move lines up/down -- works with single selection.
 map global normal '<a-up>'     'x"aZy<a-;>kPZ"azdz'
 map global normal '<a-down>'   'xdp'
-
-map global goto '<left>'   '<esc>:buffer-previous<ret>'
-map global goto '<right>'  '<esc>:buffer-next<ret>'
 
 # User mode mappings
 map -docstring "yank the selection into the clipboard" global user y "<a-|> wl-copy<ret>"
@@ -72,18 +70,29 @@ evaluate-commands %sh{
 plug "andreyorst/plug.kak" noload
 plug "andreyorst/fzf.kak" config %{
     map global user 'f' ':fzf-mode<ret>'
+    map -docstring "open buffer"              global goto 'b' '<esc>:fzf-mode<ret>b'
+    map -docstring "open file"                global goto 'o' '<esc>:fzf-mode<ret>f'
+    map -docstring "search buffer"            global goto 's' '<esc>:fzf-mode<ret>s'
+    map -docstring "search all file contents" global goto 'f' '<esc>:fzf-mode<ret>g'
 } demand fzf %{
     set-option global fzf_use_main_selection false
 } demand fzf-file %{
-    set-option global fzf_highlight_command bat
+    set-option global fzf_highlight_command 'bat'
+    set-option global fzf_file_command 'fd'
+} demand fzf-grep %{
+    set-option global fzf_grep_command 'rg'
+}
+plug "alexherbo2/auto-pairs.kak" config %{
+    evaluate-commands enable-auto-pairs
 }
 
-evaluate-commands %sh{kak-lsp}
+evaluate-commands %sh{
+    kak-lsp
+}
 lsp-enable
 
 map global user l       ':enter-user-mode lsp<ret>'                                  -docstring 'LSP mode'
 map global object a     '<a-semicolon>lsp-object<ret>'                               -docstring 'LSP any symbol'
-map global object <a-a> '<a-semicolon>lsp-object<ret>'                               -docstring 'LSP any symbol'
 map global object f     '<a-semicolon>lsp-object Function Method<ret>'               -docstring 'LSP function or method'
 map global object t     '<a-semicolon>lsp-object Class Interface Struct<ret>'        -docstring 'LSP class interface or struct'
 map global object d     '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
