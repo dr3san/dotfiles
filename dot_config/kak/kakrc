@@ -76,11 +76,12 @@ plug "andreyorst/fzf.kak" config %{
     map -docstring "search all file contents" global goto 'f' '<esc>:fzf-mode<ret>g'
 } demand fzf %{
     set-option global fzf_use_main_selection false
-} demand fzf-file %{
     set-option global fzf_highlight_command 'bat'
+} demand fzf-file %{
     set-option global fzf_file_command 'fd'
 } demand fzf-grep %{
     set-option global fzf_grep_command 'rg'
+    set-option global fzf_grep_preview_command 'bat'
 }
 plug "alexherbo2/auto-pairs.kak" config %{
     evaluate-commands enable-auto-pairs
