@@ -3,24 +3,39 @@ colorscheme gruvbox-dark
 set-option -add global autoinfo normal
 set-option global ui_options terminal_assistant=none
 
+# Debug helper
+#hook global ModeChange .* %{ echo -debug ModeChange %val{hook_param} }
+
 set-option global tabstop     4
 set-option global indentwidth 4
 set-option global scrolloff   5,10
 
 # Do not use alphas for navigation
-# map global normal j ? # TODO: Find use for this key
-# map global normal J ? # TODO: Find use for this key
-# map global normal h ? # TODO: Find use for this key
-# map global normal H ? # TODO: Find use for this key
-# map global normal k ? # TODO: Find use for this key
-# map global normal K ? # TODO: Find use for this key
-# map global normal L ? # TODO: Find use for this key
-map global normal 'l'          'x'
+map global normal 'j' ': nop<ret>' # TODO: Find use for this key
+map global normal 'J' ': nop<ret>' # TODO: Find use for this key
+map global normal 'h' ': nop<ret>' # TODO: Find use for this key
+map global normal 'H' ': nop<ret>' # TODO: Find use for this key
+map global normal 'k' ': nop<ret>' # TODO: Find use for this key
+map global normal 'K' ': nop<ret>' # TODO: Find use for this key
+map global normal 'L' ': nop<ret>' # TODO: Find use for this key
+map global normal 'l' 'x'
 
 map global normal '<end>'      'gl'
 map global normal '<home>'     'gh'
 map global normal '<pageup>'   'gt'
 map global normal '<pagedown>' 'gb'
+
+map global normal '<c-left>'    'b<semicolon>'
+map global normal '<c-right>'   'w<semicolon>'
+map global normal '<c-s-left>'  'B'
+map global normal '<c-s-right>' 'W'
+map global normal 'b'           ': nop<ret>'
+map global normal 'w'           ': nop<ret>'
+map global normal 'B'           ': nop<ret>'
+map global normal 'W'           ': nop<ret>'
+
+map global normal '<c-up>'      '5k'
+map global normal '<c-down>'    '5j'
 
 map global normal 'v'          '<a-i>'
 map global normal 'V'          '<a-a>'
@@ -31,7 +46,6 @@ map global normal '<minus>'    '<a-;>'
 map global normal '<a-up>'     'x"aZy<a-;>kPZ"azdz'
 map global normal '<a-down>'   'xdp'
 
-# User mode mappings
 map -docstring "yank the selection into the clipboard" global user y "<a-|> wl-copy<ret>"
 map -docstring "paste the clipboard"                   global user p "<a-!> wl-paste<ret>"
 
@@ -40,7 +54,7 @@ add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces -only-trailing
 add-highlighter global/ wrap -word -indent
 
-# set cursor to underline
+# Insert mode face
 hook global InsertIdle .* %{
   set-face window PrimaryCursor      default,default+u
   set-face window PrimaryCursorEol   default,default+u
@@ -49,8 +63,6 @@ hook global InsertIdle .* %{
   set-face window PrimarySelection   default,default
   set-face window SecondarySelection default,default
 }
-
-# set cursor to default
 hook global NormalIdle .* %{
   unset-face window PrimaryCursor
   unset-face window PrimaryCursorEol
@@ -60,6 +72,7 @@ hook global NormalIdle .* %{
   unset-face window SecondarySelection
 }
 
+# Plugins
 evaluate-commands %sh{
     plugins="$kak_config/plugins"
     mkdir -p "$plugins"
@@ -70,10 +83,10 @@ evaluate-commands %sh{
 plug "andreyorst/plug.kak" noload
 plug "andreyorst/fzf.kak" config %{
     map global user 'f' ':fzf-mode<ret>'
-    map -docstring "open buffer"              global goto 'b' '<esc>:fzf-mode<ret>b'
-    map -docstring "open file"                global goto 'o' '<esc>:fzf-mode<ret>f'
-    map -docstring "search buffer"            global goto 's' '<esc>:fzf-mode<ret>s'
-    map -docstring "search all file contents" global goto 'f' '<esc>:fzf-mode<ret>g'
+    map global goto 'b' '<esc>:fzf-mode<ret>b' -docstring "open buffer"
+    map global goto 'o' '<esc>:fzf-mode<ret>f' -docstring "open file"
+    map global goto 's' '<esc>:fzf-mode<ret>s' -docstring "search buffer"
+    map global goto 'f' '<esc>:fzf-mode<ret>g' -docstring "search all file contents"
 } demand fzf %{
     set-option global fzf_use_main_selection false
     set-option global fzf_highlight_command 'bat'
@@ -90,12 +103,13 @@ plug "alexherbo2/auto-pairs.kak" config %{
 evaluate-commands %sh{
     kak-lsp
 }
-lsp-enable
-
-map global user l       ':enter-user-mode lsp<ret>'                                  -docstring 'LSP mode'
-map global object a     '<a-semicolon>lsp-object<ret>'                               -docstring 'LSP any symbol'
-map global object f     '<a-semicolon>lsp-object Function Method<ret>'               -docstring 'LSP function or method'
-map global object t     '<a-semicolon>lsp-object Class Interface Struct<ret>'        -docstring 'LSP class interface or struct'
-map global object d     '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
-map global object D     '<a-semicolon>lsp-diagnostic-object<ret>'                    -docstring 'LSP errors'
-map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
+evaluate-commands %{
+    lsp-enable
+    map global user l       ':enter-user-mode lsp<ret>'                                  -docstring 'LSP mode'
+    map global object a     '<a-semicolon>lsp-object<ret>'                               -docstring 'LSP any symbol'
+    map global object f     '<a-semicolon>lsp-object Function Method<ret>'               -docstring 'LSP function or method'
+    map global object t     '<a-semicolon>lsp-object Class Interface Struct<ret>'        -docstring 'LSP class interface or struct'
+    map global object d     '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
+    map global object D     '<a-semicolon>lsp-diagnostic-object<ret>'                    -docstring 'LSP errors'
+    map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
+}

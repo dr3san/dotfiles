@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
 
-alias l='ls -l --color=auto'
+alias l='ls -lAh --color=auto'
 alias ls='ls --color=auto'
-alias ll='ls -la --color=auto'
 
 alias cp='cp -iv'
 alias mv='mv -iv'

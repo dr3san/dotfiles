@@ -9,5 +9,6 @@ export SAVEHIST=1000000
 
 export EDITOR="kak"
 export VISUAL="kak"
+export PAGER="bat -p --paging=always"
 
 export PATH=$PATH:~/.local/bin
