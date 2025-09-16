@@ -104,7 +104,7 @@ plug "andreyorst/fzf.kak" config %{
     map global user-goto 'o' '<esc>:fzf-mode<ret>f' -docstring "open file"
     map global user-goto 's' '<esc>:fzf-mode<ret>s' -docstring "search buffer"
     map global user-goto 'f' '<esc>:fzf-mode<ret>g' -docstring "search all file contents"
-    map global user-goto 'c' '<esc>:fzf-mode<ret>c' -docstring "search all file contents"
+    map global user-goto 'c' '<esc>:fzf-mode<ret>c' -docstring "change directory"
 } demand fzf %{
     set-option global fzf_use_main_selection false
     set-option global fzf_highlight_command 'bat'
