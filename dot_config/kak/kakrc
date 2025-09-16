@@ -3,12 +3,12 @@ colorscheme gruvbox-dark
 set-option -add global autoinfo normal
 set-option global ui_options terminal_assistant=none
 
-# Debug helper
-#hook global ModeChange .* %{ echo -debug ModeChange %val{hook_param} }
-
 set-option global tabstop     4
 set-option global indentwidth 4
 set-option global scrolloff   5,10
+
+# Debug helper
+#hook global ModeChange .* %{ echo -debug ModeChange %val{hook_param} }
 
 # Do not use alphas for navigation
 map global normal 'j' ': nop<ret>' # TODO: Find use for this key
@@ -17,8 +17,27 @@ map global normal 'h' ': nop<ret>' # TODO: Find use for this key
 map global normal 'H' ': nop<ret>' # TODO: Find use for this key
 map global normal 'k' ': nop<ret>' # TODO: Find use for this key
 map global normal 'K' ': nop<ret>' # TODO: Find use for this key
-map global normal 'L' ': nop<ret>' # TODO: Find use for this key
+map global normal 'L' '<a-s>'
 map global normal 'l' 'x'
+
+map global normal 't' ': nop<ret>'
+map global normal 'T' ': nop<ret>'
+map global normal 'r' ': nop<ret>'
+map global normal 'r' ': nop<ret>'
+map global normal '{' ': nop<ret>'
+map global normal '}' ': nop<ret>'
+
+declare-user-mode user-goto
+map global normal 'g' ': enter-user-mode user-goto<ret>'
+map global user-goto 'g' 'gg' -docstring "buffer top"
+map global user-goto 'e' 'ge' -docstring "buffer end"
+map global user-goto 'a' 'ga' -docstring "last buffer"
+map global user-goto '.' 'g.' -docstring "last modification"
+
+map global normal '[' '<a-('
+map global normal ']' '<a-)'
+
+map global normal 'C' 'R'
 
 map global normal '<end>'      'gl'
 map global normal '<home>'     'gh'
@@ -26,7 +45,6 @@ map global normal '<pageup>'   'gt'
 map global normal '<pagedown>' 'gb'
 
 map global normal '<c-left>'    'b<semicolon>'
-map global normal '<c-right>'   'w<semicolon>'
 map global normal '<c-s-left>'  'B'
 map global normal '<c-s-right>' 'W'
 map global normal 'b'           ': nop<ret>'
@@ -43,11 +61,11 @@ map global normal '<minus>'    '<a-;>'
 
 # TODO: Find way for undo these as a single operation
 # Move lines up/down -- works with single selection.
-map global normal '<a-up>'     'x"aZy<a-;>kPZ"azdz'
-map global normal '<a-down>'   'xdp'
+# map global normal '<a-up>'     'x"aZy<a-;>kPZ"azdz'
+# map global normal '<a-down>'   'xdp'
 
-map -docstring "yank the selection into the clipboard" global user y "<a-|> wl-copy<ret>"
-map -docstring "paste the clipboard"                   global user p "<a-!> wl-paste<ret>"
+map global user y "<a-|> wl-copy<ret>"  -docstring "yank the selection into the clipboard"
+map global user p "<a-!> wl-paste<ret>" -docstring "paste the clipboard"
 
 add-highlighter global/ number-lines -hlcursor
 add-highlighter global/ show-matching
@@ -56,20 +74,20 @@ add-highlighter global/ wrap -word -indent
 
 # Insert mode face
 hook global InsertIdle .* %{
-  set-face window PrimaryCursor      default,default+u
-  set-face window PrimaryCursorEol   default,default+u
-  set-face window SecondaryCursor    default,default+u
-  set-face window SecondaryCursorEol default,default+u
-  set-face window PrimarySelection   default,default
-  set-face window SecondarySelection default,default
+    set-face window PrimaryCursor      default,default+u
+    set-face window PrimaryCursorEol   default,default+u
+    set-face window SecondaryCursor    default,default+u
+    set-face window SecondaryCursorEol default,default+u
+    set-face window PrimarySelection   default,default
+    set-face window SecondarySelection default,default
 }
 hook global NormalIdle .* %{
-  unset-face window PrimaryCursor
-  unset-face window PrimaryCursorEol
-  unset-face window SecondaryCursor
-  unset-face window SecondaryCursorEol
-  unset-face window PrimarySelection
-  unset-face window SecondarySelection
+    unset-face window PrimaryCursor
+    unset-face window PrimaryCursorEol
+    unset-face window SecondaryCursor
+    unset-face window SecondaryCursorEol
+    unset-face window PrimarySelection
+    unset-face window SecondarySelection
 }
 
 # Plugins
@@ -82,11 +100,11 @@ evaluate-commands %sh{
 }
 plug "andreyorst/plug.kak" noload
 plug "andreyorst/fzf.kak" config %{
-    map global user 'f' ':fzf-mode<ret>'
-    map global goto 'b' '<esc>:fzf-mode<ret>b' -docstring "open buffer"
-    map global goto 'o' '<esc>:fzf-mode<ret>f' -docstring "open file"
-    map global goto 's' '<esc>:fzf-mode<ret>s' -docstring "search buffer"
-    map global goto 'f' '<esc>:fzf-mode<ret>g' -docstring "search all file contents"
+    map global user-goto 'b' '<esc>:fzf-mode<ret>b' -docstring "open buffer"
+    map global user-goto 'o' '<esc>:fzf-mode<ret>f' -docstring "open file"
+    map global user-goto 's' '<esc>:fzf-mode<ret>s' -docstring "search buffer"
+    map global user-goto 'f' '<esc>:fzf-mode<ret>g' -docstring "search all file contents"
+    map global user-goto 'c' '<esc>:fzf-mode<ret>c' -docstring "search all file contents"
 } demand fzf %{
     set-option global fzf_use_main_selection false
     set-option global fzf_highlight_command 'bat'
@@ -105,7 +123,7 @@ evaluate-commands %sh{
 }
 evaluate-commands %{
     lsp-enable
-    map global user l       ':enter-user-mode lsp<ret>'                                  -docstring 'LSP mode'
+    map global user   l     ':enter-user-mode lsp<ret>'                                  -docstring 'LSP mode'
     map global object a     '<a-semicolon>lsp-object<ret>'                               -docstring 'LSP any symbol'
     map global object f     '<a-semicolon>lsp-object Function Method<ret>'               -docstring 'LSP function or method'
     map global object t     '<a-semicolon>lsp-object Class Interface Struct<ret>'        -docstring 'LSP class interface or struct'
@@ -113,3 +131,4 @@ evaluate-commands %{
     map global object D     '<a-semicolon>lsp-diagnostic-object<ret>'                    -docstring 'LSP errors'
     map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
 }
+
