@@ -33,6 +33,7 @@ map global user-goto 'g' 'gg' -docstring "buffer top"
 map global user-goto 'e' 'ge' -docstring "buffer end"
 map global user-goto 'a' 'ga' -docstring "last buffer"
 map global user-goto '.' 'g.' -docstring "last modification"
+map global user-goto 'r' ': enter-user-mode lsp<ret>r' -docstring "list references"
 
 map global normal '[' '<a-('
 map global normal ']' '<a-)'
