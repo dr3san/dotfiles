@@ -46,6 +46,7 @@ map global normal '<pageup>'   'gt'
 map global normal '<pagedown>' 'gb'
 
 map global normal '<c-left>'    'b<semicolon>'
+map global normal '<c-right>'   'w<semicolon>'
 map global normal '<c-s-left>'  'B'
 map global normal '<c-s-right>' 'W'
 map global normal 'b'           ': nop<ret>'
