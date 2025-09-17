@@ -1,5 +1,3 @@
-colorscheme gruvbox-dark
-
 set-option -add global autoinfo normal
 set-option global ui_options terminal_assistant=none
 
@@ -11,21 +9,21 @@ set-option global scrolloff   5,10
 #hook global ModeChange .* %{ echo -debug ModeChange %val{hook_param} }
 
 # Do not use alphas for navigation
-map global normal 'j' ': nop<ret>' # TODO: Find use for this key
-map global normal 'J' ': nop<ret>' # TODO: Find use for this key
-map global normal 'h' ': nop<ret>' # TODO: Find use for this key
-map global normal 'H' ': nop<ret>' # TODO: Find use for this key
-map global normal 'k' ': nop<ret>' # TODO: Find use for this key
-map global normal 'K' ': nop<ret>' # TODO: Find use for this key
+map global normal 'j' ':nop<ret>' # TODO: Find use for this key
+map global normal 'J' ':nop<ret>' # TODO: Find use for this key
+map global normal 'h' ':nop<ret>' # TODO: Find use for this key
+map global normal 'H' ':nop<ret>' # TODO: Find use for this key
+map global normal 'k' ':nop<ret>' # TODO: Find use for this key
+map global normal 'K' ':nop<ret>' # TODO: Find use for this key
 map global normal 'L' '<a-s>'
 map global normal 'l' 'x'
 
-map global normal 't' ': nop<ret>'
-map global normal 'T' ': nop<ret>'
-map global normal 'r' ': nop<ret>'
-map global normal 'r' ': nop<ret>'
-map global normal '{' ': nop<ret>'
-map global normal '}' ': nop<ret>'
+map global normal 't' ':nop<ret>'
+map global normal 'T' ':nop<ret>'
+map global normal 'r' ':nop<ret>'
+map global normal 'r' ':nop<ret>'
+map global normal '{' ':nop<ret>'
+map global normal '}' ':nop<ret>'
 
 declare-user-mode user-goto
 map global normal 'g' ': enter-user-mode user-goto<ret>'
@@ -66,13 +64,12 @@ map global normal '<minus>'    '<a-;>'
 # map global normal '<a-up>'     'x"aZy<a-;>kPZ"azdz'
 # map global normal '<a-down>'   'xdp'
 
-map global user y "<a-|> wl-copy<ret>"  -docstring "yank the selection into the clipboard"
-map global user p "<a-!> wl-paste<ret>" -docstring "paste the clipboard"
-
 add-highlighter global/ number-lines -hlcursor
-add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces -only-trailing
 add-highlighter global/ wrap -word -indent
+
+map global user y "<a-|> wl-copy<ret>"  -docstring "yank the selection into the clipboard"
+map global user p "<a-!> wl-paste<ret>" -docstring "paste the clipboard"
 
 # Insert mode face
 hook global InsertIdle .* %{
@@ -134,3 +131,15 @@ evaluate-commands %{
     map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
 }
 
+evaluate-commands %sh{
+    kak-tree-sitter -dks -vv --init $kak_session
+}
+
+evaluate-commands %{
+    define-command -override tree-sitter-user-after-highlighter %{
+        add-highlighter -override buffer/show-matching show-matching
+
+    }
+}
+
+colorscheme gruvbox-dark-medium
