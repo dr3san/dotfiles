@@ -1,3 +1,5 @@
+#!/usr/bin/zsh
+
 bindkey -e
 setopt NO_BEEP
 
@@ -31,6 +33,8 @@ bindkey '^[[F' end-of-line       # End
 bindkey '^[[3;5~' kill-word      # Ctrl + Delete
 bindkey '^H' backward-kill-word  # Ctrl + Backspace
 bindkey '^[[3~' delete-char      # Delete
+bindkey '^[[5~' forward-word # PageUp
+bindkey '^[[6~' backward-word # PageDown
 
 export LS_COLORS="$(vivid generate gruvbox-dark-soft)"
 source $XDG_CONFIG_HOME/aliases.sh
