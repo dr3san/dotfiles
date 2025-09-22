@@ -152,4 +152,4 @@ evaluate-commands %{
     }
 }
 
-colorscheme gruvbox-dark-medium
+colorscheme gruvbox-material-mix-soft
