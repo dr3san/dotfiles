@@ -26,12 +26,22 @@ map global normal '{' ':nop<ret>'
 map global normal '}' ':nop<ret>'
 
 declare-user-mode user-goto
-map global normal 'g' ': enter-user-mode user-goto<ret>'
-map global user-goto 'g' 'gg' -docstring "buffer top"
-map global user-goto 'e' 'ge' -docstring "buffer end"
-map global user-goto 'a' 'ga' -docstring "last buffer"
-map global user-goto '.' 'g.' -docstring "last modification"
-map global user-goto 'r' ': enter-user-mode lsp<ret>r' -docstring "list references"
+define-command enter-user-goto -params 1 %{
+    evaluate-commands %sh{
+        if [ $kak_count = 0 ]; then
+            echo "execute-keys ':enter-user-mode user-goto<ret>'"
+        else
+            echo "execute-keys '${kak_count}g'"
+        fi
+    }
+}
+map global normal 'g' ':enter-user-goto $kak_count<ret>'
+map global user-goto 'g' 'gg'              -docstring "buffer top"
+map global user-goto 'e' 'ge'              -docstring "buffer end"
+map global user-goto 'a' 'ga'              -docstring "last buffer"
+map global user-goto '.' 'g.'              -docstring "last modification"
+map global user-goto 'r' ':lsp-references' -docstring "list references"
+map global user-goto 'd' ':lsp-definition' -docstring "go to definition"
 
 map global normal '[' '<a-('
 map global normal ']' '<a-)'
