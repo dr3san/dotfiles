@@ -18,7 +18,11 @@
 [delta]
     navigate = true  # use n and N to move between diff sections
     line-numbers = true
-    map-styles = bold purple => syntax "#928374", bold cyan => syntax "#689d6a"
+    map-styles = bold purple => syntax "#45403d", bold cyan => syntax "#3b4439"
+    minus-style = syntax "#402120"
+    minus-emph-style = syntax strike "#402120"
+    plus-style = syntax "#34381b"
+    plus-emph-style = syntax bold "#34381b"
 
 [advice]
     statusHints = false

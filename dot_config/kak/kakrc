@@ -36,12 +36,12 @@ define-command enter-user-goto -params 1 %{
     }
 }
 map global normal 'g' ':enter-user-goto $kak_count<ret>'
-map global user-goto 'g' 'gg'              -docstring "buffer top"
-map global user-goto 'e' 'ge'              -docstring "buffer end"
-map global user-goto 'a' 'ga'              -docstring "last buffer"
-map global user-goto '.' 'g.'              -docstring "last modification"
-map global user-goto 'r' ':lsp-references' -docstring "list references"
-map global user-goto 'd' ':lsp-definition' -docstring "go to definition"
+map global user-goto 'g' 'gg'                   -docstring "buffer top"
+map global user-goto 'e' 'ge'                   -docstring "buffer end"
+map global user-goto 'a' 'ga'                   -docstring "last buffer"
+map global user-goto '.' 'g.'                   -docstring "last modification"
+map global user-goto 'r' ':lsp-references<ret>' -docstring "list references"
+map global user-goto 'd' ':lsp-definition<ret>' -docstring "go to definition"
 
 map global normal '[' '<a-('
 map global normal ']' '<a-)'

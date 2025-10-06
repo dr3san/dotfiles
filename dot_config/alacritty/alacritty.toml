@@ -11,26 +11,22 @@ size = 16.0
 
 [font.normal]
 family = "Iosevka Term"
-style = "Regular"
 
 [font.bold]
 family = "Iosevka Term"
-style = "Bold"
 
 [font.bold_italic]
 family = "Iosevka Term"
-style = "Bold Italic"
 
 [font.italic]
 family = "Iosevka Term"
-style = "Italic"
 
 [cursor]
 style = "Block"
 
 [general]
 import = [
-	"~/.config/alacritty/gruvbox_dark.toml"
+	"~/.config/alacritty/gruvbox_material_dark.toml"
 ]
 
 [keyboard]
