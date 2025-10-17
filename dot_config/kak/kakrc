@@ -145,11 +145,6 @@ evaluate-commands %sh{
     kak-tree-sitter -dks -vv --init $kak_session
 }
 
-evaluate-commands %{
-    define-command -override tree-sitter-user-after-highlighter %{
-        add-highlighter -override buffer/show-matching show-matching
-
-    }
-}
+add-highlighter -override global/ show-matching
 
 colorscheme gruvbox-material-mix-soft
