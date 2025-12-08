@@ -10,4 +10,4 @@ export SAVEHIST=1000000
 export EDITOR="kak"
 export VISUAL="kak"
 
-export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.local/bin:~/.cargo/bin
