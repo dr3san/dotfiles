@@ -1,0 +1,54 @@
+window {
+  font-family: "Iosevka Extended";
+  font-size: 20px;
+  margin: 0px;
+  border: 1px solid rgb(91, 91, 91);
+  background-color: rgb(40, 40, 40);
+}
+
+#input {
+  margin: 5px;
+  border: none;
+  color: #f8f8f2;
+  background-color: rgba(55, 59, 65, 0.95);
+}
+
+#inner-box {
+  margin: 5px;
+  border: none;
+  background-color: transparent;
+}
+
+#outer-box {
+  margin: 5px;
+  border: none;
+  background-color: transparent;
+}
+
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: #c5c8c6;
+}
+
+#entry {
+  border: none;
+}
+
+#entry:focus {
+  border: none;
+}
+
+#text:selected {
+  color: rgb(237, 114, 93);
+}
+
+#entry:selected {
+  background-color: rgba(55, 59, 65, 0.95);
+  border: none;
+}

@@ -1,0 +1,84 @@
+// -*- mode: jsonc -*-
+{
+	"layer": "top",
+	"height": 28,
+	"modules-left": [
+		"sway/workspaces",
+		"sway/window"
+	],
+	"modules-center": [
+		"clock"
+	],
+	"modules-right": [
+		"sway/mode",
+		"pulseaudio",
+		"bluetooth",
+		"network",
+		"sway/language",
+		"battery",
+		"custom/power"
+	],
+	"sway/workspaces": {
+		"disable-scroll": true
+	},
+	"sway/language": {
+		"tooltip": false,
+		"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+	},
+	"sway/mode": {
+		"format": "<span style=\"italic\">{}</span>",
+		"tooltip": false
+	},
+	"custom/power": {
+		"format": " ",
+		"tooltip": false,
+		"on-click": "swaynag -m 'Power options' -b 'Power off' 'poweroff' -b 'Reboot' 'reboot' -b 'Log out' 'swaymsg exit' --font 'Iosevka Extended'"
+	},
+	"bluetooth": {
+		"format": "",
+		"tooltip-format-connected": "{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+	},
+	"clock": {
+		"tooltip-format": "<big>{calendar}</big>",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"weeks-pos": "right",
+			"on-scroll": 1,
+			"format": {
+				"months": "<span color='#ffead3'><b>{}</b></span>",
+				"days": "<span color='#ecc6d9'><b>{}</b></span>",
+				"weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+				"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+				"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+			}
+		},
+		"actions": {
+			"on-click": "mode"
+		}
+	},
+	"battery": {
+		"format": "{capacity:2}%",
+		"states": {
+			"warning": 20,
+			"critical": 10
+		}
+	},
+	"network": {
+		"format": "",
+		"format-wifi": "",
+		"tooltip-format-disconnected": "No network",
+		"tooltip-format-ethernet": "{ifname} ({ipaddr}) via {gwaddr}",
+		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname} ({ipaddr}) via {gwaddr}"
+	},
+	"pulseaudio": {
+		"format": "{volume}%  {format_source}",
+		"format-bluetooth": "{volume}%   {format_source}",
+		"format-bluetooth-muted": "   {format_source}",
+		"format-muted": " {format_source}",
+		"format-source": "",
+		"format-source-muted": "",
+		"on-click": "pavucontrol"
+	}
+}

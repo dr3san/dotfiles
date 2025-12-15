@@ -1,0 +1,89 @@
+* {
+    font-family: Iosevka Extended;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -2px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background-color: rgb(40, 40, 40);
+    border-bottom: 3px solid rgb(100, 114, 125);
+    color: #ffffff;
+}
+
+#workspaces button {
+    padding: 0 0.3em;
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+}
+
+#workspaces button:hover {
+    background: inherit;
+    border: inherit;
+}
+
+#workspaces button.focused {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mode,
+#clock {
+    background-color: #64727D;
+}
+
+#clock,
+#battery,
+#network,
+#pulseaudio,
+#bluetooth,
+#window,
+#language,
+#mode {
+    padding: 0 10px;
+}
+
+#battery.charging,
+#battery.plugged {
+    box-shadow: inset 0 -3px #11d004;
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#network.disconnected,
+#bluetooth.off,
+#pulseaudio.muted {
+    color: #AAAAAA;
+}
+
+#bluetooth.connected {
+    box-shadow: inset 0 -3px #ffffff;
+}
