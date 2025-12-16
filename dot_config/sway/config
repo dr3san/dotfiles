@@ -35,9 +35,9 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_options caps:escape
 }
 
-input "dr3san kivipallur" {
-    accel_profile flat
-    pointer_accel -1
+input type:pointer {
+    accel_profile adaptive
+    pointer_accel -0.8
 }
 
 ### Clipboard configuration
