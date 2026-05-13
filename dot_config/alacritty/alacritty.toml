@@ -33,4 +33,5 @@ import = [
 bindings = [
   {key = "PageUp", mods = "Control", action = "ScrollLineUp"},
   {key = "PageDown", mods = "Control", action = "ScrollLineDown"},
+  {key = "Return", mods = "Shift", chars = "\u001B\r"},
 ]
