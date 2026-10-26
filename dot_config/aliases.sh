@@ -23,3 +23,5 @@ alias gd='git diff'
 alias ga='git add'
 alias gfixup='git commit --fixup'
 
+alias gowatch='fd -t f | entr -r go run .'
+
